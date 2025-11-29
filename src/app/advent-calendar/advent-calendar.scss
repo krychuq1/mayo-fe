@@ -1,0 +1,79 @@
+.advent-calendar {
+  // 1. Define the explicit height of the main container
+  height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-y: hidden;
+  //padding: 1.5rem 1.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .logo {
+    max-width: 5.25rem;
+    margin: 1.5rem auto 1rem 1rem;
+    flex-shrink: 0;
+  }
+
+  // 2. Make the carousel component fill the remaining space
+  owl-carousel-o {
+    //flex: 1;
+    //display: block;
+    //width: 100%;
+    //min-height: 0; // standard fix for flex children
+
+    // 3. Force internal carousel DOM nodes to fill that space
+    ::ng-deep {
+      .owl-carousel {
+        //height: 100%;
+        //position: relative;
+      }
+
+      .owl-stage-outer {
+        //height: auto;
+      }
+
+      .owl-stage {
+        //height: 100%;
+        //display: flex; // This ensures slides stretch vertically
+      }
+
+      .owl-item {
+        height: 100%;
+        transition: transform 1s ease, opacity 1s ease;
+        transform: scale(.95);
+        opacity: .4;
+        // This targets your <app-calendar-day> inside the slide
+        // ensuring it actually grabs the height from the carousel item
+        & > * {
+          display: block;
+          height: 100%;
+        }
+      }
+      .owl-item.active {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .owl-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0rem;
+        margin-top: 1rem;
+      }
+
+      .owl-dot span {
+        display: block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #D9D9D9;
+        transition: background-color 0.2s ease;
+      }
+
+      .owl-dot.active span {
+        background: #063DBF;
+      }
+    }
+  }
+}

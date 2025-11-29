@@ -1,0 +1,28 @@
+<div
+  class="calendar-day"
+  [ngClass]="{'ig': isInstagramInApp()}"
+  [style.background-image]="backgroundImage"
+>
+  <div class="number" [ngClass]="{'white-number': isWhite}">
+    {{ dayNumber }}
+  </div>
+  @if (isSecret) {
+    <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
+      <p>it’s still a secret 🤫 </p>
+    </div>
+  }
+
+  @else {
+    <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
+      <span>Zostało:</span>
+      <p>{{ countdown() }}</p>
+    </div>
+  }
+
+
+
+<!--  <div class="date-counter" [ngClass]="{'white-counter': isWhite}">-->
+<!--    <span>Zostało:</span>-->
+<!--    <p>{{ countdown() }}</p>-->
+<!--  </div>-->
+</div>

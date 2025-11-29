@@ -1,0 +1,39 @@
+@use "colors" as *;
+
+input[type='text'].mayo-input,
+input[type='email'].mayo-input{
+  border: 1px solid #D9D9D9;
+  background: #ffffff;
+  color: #000000;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s;
+  &::placeholder {
+    color: #B3B3B3;
+    font-size: 1rem;
+  }
+
+  &:focus {
+    border-color: #a8a8a8;
+  }
+
+  &:disabled {
+    background: #ffffff;
+    color: #000000;
+    cursor: not-allowed;
+  }
+
+  &.invalid,
+  &[aria-invalid='true'] {
+    border-color: $error-color;
+  }
+}
+
+.errors {
+  color: $error-color;
+  font-size: 1rem;
+
+  .error {
+    margin-top: 0.5rem;
+  }
+}

@@ -1,0 +1,12 @@
+@use "app/styles/fonts" as font;
+@use "app/styles/colors" as *;
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+body{
+  margin: 0;
+  padding: 0;
+  background: $background-gradient;
+  font-family: font.$font-family;
+  overflow: hidden;
+}

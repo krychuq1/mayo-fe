@@ -1,0 +1,41 @@
+<div class="welcome-screen">
+  <img src="logo.svg" alt="App Logo" class="logo"/>
+  <img src="welcome-screen/sosik.png" alt="Sosik" class="sosik"/>
+  <img src="welcome-screen/clothes.png" alt="Clothes" class="clothes"/>
+  <div class="form">
+    <img src="welcome-screen/christmas.png" alt="Christmas Decoration" class="decoration"/>
+    <div class="form-header">
+      <h3>¡hola!</h3>
+      <p>jaaak miło, że tu jesteś 😌
+        kalendarz adwentowy
+        vinted już czeka, wbijaj</p>
+    </div>
+
+    <!-- Email capture form -->
+    <form class="email-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <input
+        class="mayo-input"
+        id="email"
+        type="email"
+        formControlName="email"
+        [class.invalid]="submitted && email.invalid"
+        placeholder="example@gmail.com"
+        autocomplete="email"
+        aria-describedby="emailErrors"
+        [attr.aria-invalid]="submitted && email.invalid ? 'true' : 'false'"
+      />
+      @if (submitted && email.invalid) {
+        <div id="emailErrors" class="errors">
+          @if (email.errors?.['required']) {
+            <div class="error">Email jest wymagany.</div>
+          } @else if (email.errors?.['email']) {
+            <div class="error">Podaj poprawny adres email.</div>
+          }
+        </div>
+      }
+      <button type="submit" class="primary-button">
+        <img src="button/magic-link.svg" alt="Magic Link Icon" class="button-icon"/>
+        Wyślij magic link do logowania</button>
+    </form>
+  </div>
+</div>

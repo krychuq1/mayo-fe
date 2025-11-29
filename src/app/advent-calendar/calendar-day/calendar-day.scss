@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-day {
+  // Center the card within the carousel slide
+  margin: 0 auto;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: calc(100vh - 14rem);
+  background: #311704;
+  // Update: 'cover' makes the image fill the entire card area
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  &.ig{
+    min-height: calc(100vh - 9rem);
+  }
+
+  // Match the visual design constraints
+  max-width: 100%; // Allow it to fill the slide
+  border-radius: 24px; // Adds the rounded corners from the design
+  overflow: hidden;   // Ensures content doesn't spill out of corners
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); // Optional: adds slight depth
+}
+
+.number {
+  position: absolute; // Fix: Take out of flow to overlay on image
+  top: 2.5rem;        // Adjust top spacing
+  left: 2.5rem;       // Adjust left spacing
+
+  font-size: 8rem;    // Large size from design
+  font-family: "Shrikhand", serif;
+  font-weight: 400;
+  color: #522504;
+  &.white-number{
+    color: #ffffff;
+  }
+  line-height: 1;
+  z-index: 2;         // Ensure it sits on top of background
+}
+
+.date-counter {
+  position: absolute; // Fix: Pin to bottom right
+  bottom: 7rem;
+  right: 3rem;
+
+  color: #522504;
+  text-align: right;  // Align text to the right
+  z-index: 2;
+  &.white-counter {
+    color: #ffffff;
+  }
+
+  span {
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums; // Keeps timer numbers from jumping
+  }
+}

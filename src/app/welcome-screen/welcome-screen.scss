@@ -1,0 +1,70 @@
+@use "sass:color";
+@use "../styles/fonts" as *;
+@use "../styles/colors" as *;
+@use "../styles/input" as *;
+@use "../styles/buttons" as *;
+
+.welcome-screen {
+  min-height: calc(100vh - 1.5rem);
+  padding-top: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  .logo{
+    display: block;
+    margin: 0rem auto 1rem auto;
+    max-width: 10rem;
+  }
+  .sosik{
+    max-width: 100%;
+  }
+  p{
+    margin: 0;
+    padding: 0;
+    font-family: $font-family-secondary;
+    font-size: 1rem;
+    line-height: 1.37;
+    color: #9B7556;
+    text-align: center;
+  }
+  .clothes{
+    margin-top: 12px;
+    max-width: 100%;
+  }
+  .form{
+    position: relative;
+    .decoration{
+      max-width: 100%;
+      position: absolute;
+      top: -90px;
+    }
+    .form-header{
+      margin-top: 32px;
+      h3{
+        color: $font-primary-color;
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      p{
+        font-family: $font-family;
+        color: $font-default-color;
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.4;
+        max-width: 245px;
+        margin: 0.5rem auto;
+      }
+    }
+    .email-form{
+      .primary-button{
+        margin-top: 0.75rem;
+        margin-bottom: 5.75rem;
+      }
+      display: flex;
+      flex-direction: column;
+      margin: 24px 20px;
+    }
+  }
+}

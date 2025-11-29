@@ -1,0 +1,21 @@
+<!--conditional class if ig browser-->
+<div class="advent-calendar">
+<!--  @if (authService.userWithCalendarData?.isActive === false) {-->
+<!--    <p>please activate user</p>-->
+<!--  }-->
+  <img src="logo.svg" alt="App Logo" class="logo"/>
+  <owl-carousel-o [options]="customOptions">
+        @for (day of days; track day) {
+          <ng-template carouselSlide>
+            <app-calendar-day
+              [isSecret]="day > 3"
+              [isWhite]="day > 1"
+              [dayNumber]="day"
+              [isOpen]="false"
+            ></app-calendar-day>
+            </ng-template>
+
+        }
+  </owl-carousel-o>
+</div>
+

@@ -1,0 +1,18 @@
+@use "colors" as *;
+@use "fonts" as *;
+
+.primary-button {
+  background: $primary-color;
+  font-family: $font-family;
+  color: #fafafa;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  border-radius: 28px;
+  border: none;
+  padding: 1rem;
+  img{
+
+    width: 0.8rem;
+  }
+}
