@@ -12,5 +12,6 @@ export type UserWithCalendarData = {
 export interface adventCalendar {
   day: number;
   isOpen: boolean;
+  isMissed: boolean;
   createdAt: Date;
 }

@@ -28,31 +28,8 @@ export class WelcomeScreen implements OnInit {
   get email(): FormControl { return this.form.get('email') as FormControl; }
 
   ngOnInit(): void {
-    // this.authService.validateToken(this.cookieService.get('mayo_auth_token')).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //   },
-    //   error: () => {
-    //
-    //   }
-    // });
-    // this.route.queryParamMap.subscribe(params => {
-    //   const token = params.get('token');
-    //   if (token) {
-    //     this.handleToken(token);
-    //   }
-    // });
   }
 
-  private handleToken(token: string): void {
-    const queryParams = { ...this.route.snapshot.queryParams };
-    delete queryParams['token'];
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams,
-      replaceUrl: true
-    });
-  }
 
   onSubmit() {
     console.log('submitting forumalrz');

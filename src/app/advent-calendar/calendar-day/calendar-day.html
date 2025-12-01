@@ -1,28 +1,92 @@
-<div
-  class="calendar-day"
-  [ngClass]="{'ig': isInstagramInApp()}"
-  [style.background-image]="backgroundImage"
->
-  <div class="number" [ngClass]="{'white-number': isWhite}">
-    {{ dayNumber }}
+<div class="calendar-day-scene">
+
+  <div class="flipper" [class.flipped]="isOpen" [ngClass]="{'ig': isInstagramInApp()}">
+    <div
+      class="card-face front"
+      [ngClass]="{'ig': isInstagramInApp()}"
+      [style.background-image]="backgroundImage"
+    >
+      @if(isMissed) {
+        <div class="missed-overlay">
+          <div class="miss-text">Ups, przegapione 😭</div>
+        </div>
+      }
+      <div class="number" [ngClass]="{'white-number': isWhite}">
+        {{ dayNumber }}
+      </div>
+      @if(!isMissed) {
+
+        @if(countdown() != '00:00:00') {
+            @if (isSecret) {
+                <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
+                  <p>it’s still a secret 🤫 </p>
+                </div>
+              } @else {
+              <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
+                <span>Zostało:</span>
+                <p>{{ countdown() }}</p>
+              </div>
+            }
+
+        } @else {
+          <button (click)="open()" (touchstart)="open()" class="primary-button">
+            Otwieram!
+          </button>
+        }
+      }
+
+    </div>
+
+    <div
+      class="card-face back open"
+      [ngClass]="{'ig': isInstagramInApp()}"
+    >
+      @if (hasVintedItem) {
+        @if(hasSauce()) {
+          <div class="sauce">
+            <div class="header">
+              <div class="arrow" (click)="hasSauce.set(false)">
+                <img src="advent-calendar/arrow.svg"/>
+              </div>
+
+              <p>It's got the sauce!</p>
+            </div>
+            <img class="sauce-image" [src]="sauceItemUrl" loading="lazy"/>
+<!--            <div class="desc" [innerHTML]="firstItem?.sauce">-->
+<!--            </div>-->
+          </div>
+
+        } @else {
+          <img src="advent-calendar/button.png" class="button-image" (click)="hasSauce.set(true)"/>
+          <img class="vinted-item-image" [src]="firstItemImage" [alt]="firstItem?.title || 'Vinted item'" loading="lazy" />
+          <div class="vinted-item-details">
+            <p class="vinted-item-title">{{ firstItem?.title }}</p>
+            <p class="vinted-item-size">{{ firstItem?.size }} {{firstItem?.description}}</p>
+            <p class="vinted-item-price-ship">
+              {{ firstItem?.priceWithShipping }}zł
+            </p>
+            <span>Zawiera Ochronę Kupujących</span>
+          </div>
+          <a
+            class="vinted-link"
+            [href]="firstItem?.link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="advent-calendar/link.svg">
+            Zobacz na Vinted
+          </a>
+        }
+
+      } @else {
+        <div class="empty-state">
+          <div class="loader">
+            <img src="loader/loader.svg">
+            <p>Sekundę, dorzucam świeże inspiracje..</p>
+          </div>
+        </div>
+      }
+    </div>
+
   </div>
-  @if (isSecret) {
-    <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
-      <p>it’s still a secret 🤫 </p>
-    </div>
-  }
-
-  @else {
-    <div class="date-counter" [ngClass]="{'white-counter': isWhite}">
-      <span>Zostało:</span>
-      <p>{{ countdown() }}</p>
-    </div>
-  }
-
-
-
-<!--  <div class="date-counter" [ngClass]="{'white-counter': isWhite}">-->
-<!--    <span>Zostało:</span>-->
-<!--    <p>{{ countdown() }}</p>-->
-<!--  </div>-->
 </div>

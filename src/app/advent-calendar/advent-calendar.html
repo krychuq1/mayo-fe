@@ -1,21 +1,65 @@
 <!--conditional class if ig browser-->
 <div class="advent-calendar">
-<!--  @if (authService.userWithCalendarData?.isActive === false) {-->
-<!--    <p>please activate user</p>-->
-<!--  }-->
-  <img src="logo.svg" alt="App Logo" class="logo"/>
-  <owl-carousel-o [options]="customOptions">
-        @for (day of days; track day) {
-          <ng-template carouselSlide>
-            <app-calendar-day
-              [isSecret]="day > 3"
-              [isWhite]="day > 1"
-              [dayNumber]="day"
-              [isOpen]="false"
-            ></app-calendar-day>
-            </ng-template>
+  @if (isInactiveUser) {
+    <div class="inactive-overlay">
+      <div class="inactive-card">
+        <h2>Twój email nie został zweryfikowany</h2>
+        <p>Wpisz go jeszcze raz, a my wyślemy nowy link.</p>
+        <form [formGroup]="form" (ngSubmit)="onResend()" novalidate>
+          <label
+            for="email"
+            >Adres e-mail</label
+          >
+          <input
+            class="mayo-input"
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="przyklad@gmail.com"
+            aria-describedby="emailErrors"
+            [class.invalid]="submitted && email?.invalid"
+            [attr.aria-invalid]="submitted && email?.invalid ? 'true' : 'false'"
 
-        }
-  </owl-carousel-o>
+          />
+          <label
+            for="email-repeat"
+            >Powtórz adres e-mail</label>
+          <input
+            class="mayo-input"
+            id="email-repeat"
+            type="email"
+            formControlName="repeatEmail"
+            placeholder="przyklad@gmail.com"
+            aria-describedby="emailErrors"
+            [attr.aria-invalid]="submitted && (repeatEmail?.invalid || emailsMismatch)"
+            [class.invalid]="submitted && (repeatEmail?.invalid || emailsMismatch)"
+          />
+          <div class="errors">
+            @if (submitted && emailsMismatch) {
+              <div class="error">Adresy e-mail muszą być takie same.</div>
+            }
+            @if (submitted && repeatEmail?.errors?.['required']) {
+              <div class="error">Powtórz e-mail.</div>
+            }
+          </div>
+
+          <button type="submit">Wyślij ponownie</button>
+        </form>
+      </div>
+    </div>
+  }
+    <img src="logo.svg" alt="App Logo" class="logo"/>
+    <owl-carousel-o [options]="customOptions">
+      @for (day of days; track day) {
+        <ng-template carouselSlide>
+          <app-calendar-day
+            [isSecret]="day > 5"
+            [isWhite]="day > 1"
+            [dayNumber]="day"
+            [isMissed]="checkIfUserHasMissedDay(day)"
+            [isOpen]="checkIfUserHasOpenedDay(day)"
+          ></app-calendar-day>
+        </ng-template>
+      }
+    </owl-carousel-o>
 </div>
-

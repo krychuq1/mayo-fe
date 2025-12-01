@@ -1,5 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
 import {NgClass} from '@angular/common';
+import {CalendarService} from '../../services/calendar.service';
+import {VintedItem} from '../../services/types/vinted-item.model';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-calendar-day',
@@ -14,8 +17,37 @@ export class CalendarDay implements OnInit, OnDestroy {
   @Input() isOpen!: boolean;
   @Input() isWhite!: boolean;
   @Input() isSecret!: boolean;
-
+  @Input() isMissed!: boolean;
+  vintedItems: VintedItem[] = [];
   countdown = signal<string>('');
+  hasSauce = signal<boolean>(false);
+  get firstItem(): VintedItem | undefined {
+    return this.vintedItems[0];
+  }
+
+  get hasVintedItem(): boolean {
+    return !!this.firstItem;
+  }
+
+
+  get sauceItemUrl(): string {
+    const item = this.firstItem;
+    console.log('here ', item);
+
+    if (!item || !item.sauceUrls || item.sauceUrls.length === 0) {
+      return '';
+    }
+    return item.sauceUrls[0];
+  }
+
+  get firstItemImage(): string {
+    const item = this.firstItem;
+    if (!item) {
+      return '';
+    }
+    const image = (item.vintedItemUrls && item.vintedItemUrls[0]) || (item.sauceUrls && item.sauceUrls[0]);
+    return image || 'logo.svg';
+  }
 
   get backgroundImage(): string {
     if (this.isSecret) {
@@ -26,15 +58,16 @@ export class CalendarDay implements OnInit, OnDestroy {
 
   private timerId: any;
 
-  constructor() {}
+  constructor(private calendarService: CalendarService,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     // make it custome based on dayNumber form input you will get from 1 to 24 where 1 is December 1st and 24 is December 24th
     const targetDate = new Date(`2025-12-${this.dayNumber.toString().padStart(2, '0')}T08:00:00Z`);
+
     this.timerId = setInterval(() => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
-
       if (difference > 0) {
         // Calculate total full days
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -64,6 +97,10 @@ export class CalendarDay implements OnInit, OnDestroy {
         clearInterval(this.timerId);
       }
     }, 1000);
+    if(this.dayNumber === 1 ) {
+      this.getItemForDay();
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -84,5 +121,30 @@ export class CalendarDay implements OnInit, OnDestroy {
 
   isInstagramInApp(): boolean {
     return this.userAgent.includes('instagram');
+  }
+
+  open(): void {
+    this.isOpen = true;
+    this.authService.openDay(this.dayNumber).subscribe({
+      next: () => {
+        console.log('Day opened successfully');
+      },
+      error: (err) => {
+        console.error('Error opening calendar day:', err);
+      }
+    });
+  }
+
+  getItemForDay(): void{
+    this.calendarService.openDay(this.dayNumber).subscribe({
+      next: (res) => {
+        this.vintedItems = res;
+
+      },
+      error: (err) => {
+        console.error('Error opening calendar day:', err);
+      }
+    })
+
   }
 }

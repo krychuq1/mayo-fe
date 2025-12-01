@@ -1,48 +1,291 @@
+@use "../../styles/buttons" as *;
+@use "../../styles/fonts" as *;
+@use "../../styles/colors" as *;
+
+
 :host {
   display: block;
   height: 100%;
   width: 100%;
 }
 
-.calendar-day {
-  // Center the card within the carousel slide
+// 1. The Container (Scene)
+.calendar-day-scene {
   margin: 0 auto;
-  position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
   min-height: calc(100vh - 14rem);
-  background: #311704;
-  // Update: 'cover' makes the image fill the entire card area
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  perspective: 1000px;
+
+  &:has(.ig) {
+    min-height: calc(100vh - 9rem);
+  }
+}
+
+// 2. The Moving Part (Flipper)
+// REVERTED: Back to using transition for the smooth rotation physics
+.flipper {
+  min-height: calc(100vh - 14rem);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform-style: preserve-3d;
+
+  // The rotation physics you liked (Fast start, slow stop)
+  transition: transform 2.5s cubic-bezier(0.1, 0.9, 0.2, 1);
   &.ig{
     min-height: calc(100vh - 9rem);
   }
-
-  // Match the visual design constraints
-  max-width: 100%; // Allow it to fill the slide
-  border-radius: 24px; // Adds the rounded corners from the design
-  overflow: hidden;   // Ensures content doesn't spill out of corners
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1); // Optional: adds slight depth
+  &.flipped {
+    transform: rotateY(1620deg); // 4.5 spins
+  }
 }
 
-.number {
-  position: absolute; // Fix: Take out of flow to overlay on image
-  top: 2.5rem;        // Adjust top spacing
-  left: 2.5rem;       // Adjust left spacing
+// 3. The Faces
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-  font-size: 8rem;    // Large size from design
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden; // Hides the back when rotated
+
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+  // NEW: When the parent flipper has '.flipped', we blur the faces themselves
+  // This keeps the 3D container intact.
+  .flipped & {
+    animation: motion-blur 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  }
+}
+
+// --- Specific Face Styles ---
+
+.front {
+  background: #311704;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: rotateY(0deg) translateZ(1px);
+  .missed-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #311704;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .miss-text{
+      position: absolute; // Fix: Pin to bottom right
+      bottom: 7rem;
+      right: 3rem;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.back {
+  .empty-state{
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Important: Parent must have height for percentages to work */
+    overflow: hidden; /* optional: clips corners if you add border-radius */
+
+    .loader{
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      p{
+        font-size: 1rem;
+        line-height: 1rem;
+      }
+      img{
+        width: 3rem;
+        animation: loader-spin 1.5s linear infinite;
+      }
+    }
+  }
+  background-color: #ffffff;
+  //color: #522504;
+  // CRITICAL FIX: Pushes the back side 1px away so they don't fight
+  transform: rotateY(180deg) translateZ(1px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .button-image{
+    position: absolute;
+    top: 1rem;
+    width: calc(100% - 2rem);
+  }
+  .primary-button{
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: calc(100% - 2rem);
+    padding: 0.75rem;
+    position: static ;
+  }
+  .vinted-item-image{
+    margin-top: 4.25rem;
+    flex: 1 1 auto;
+
+    // 2. The Hard Limit: Never taller than 60% of the .back container
+    max-height: 50%;
+    width: auto;
+  }
+  .vinted-item-details{
+    margin-top: 1rem;
+    width: calc(100% - 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    p{
+      margin: 0;
+      &.vinted-item-title{
+        font-size: 1rem;
+      }
+      &.vinted-item-size{
+        font-size: 0.875rem;
+      }
+      &.vinted-item-price-ship{
+        font-weight: 600;
+        font-size: 1rem;
+      }
+    }
+    span{
+      margin-top: -0.5rem;
+      font-size: 0.875rem;
+      color: #757575;
+    }
+  }
+  .vinted-link{
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    bottom: 1rem;
+    //margin-top: 1rem;
+    img{
+      width: 1rem;
+    }
+  }
+  .sauce {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Important: Parent must have height for percentages to work */
+    overflow: hidden; /* optional: clips corners if you add border-radius */
+
+    .header {
+      margin: 1rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      //gap: 3rem;
+      flex: 0 0 auto; /* Header takes only the space it needs, doesn't grow/shrink */
+      padding-bottom: 0rem; /* Added spacing */
+      .arrow{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 2rem;
+        img{
+          width: 1.5rem;
+        }
+      }
+
+      p {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $font-primary-color;
+        margin: 0; /* Reset default margin */
+      }
+    }
+
+    .sauce-image {
+      flex: 7; /* Takes 7 portions (70%) of remaining space */
+      width: 100%;
+      object-fit: contain; /* Ensures image covers area without squishing */
+      min-height: 0; /* Critical flexbox fix for scrolling overflow */
+    }
+
+    .desc {
+      //border: 1px solid red;
+      justify-content: flex-end; /* 2. Push content to bottom */
+      flex: 3;
+      overflow-y: scroll;
+      padding: 1rem;
+
+
+      max-height: 200px;
+      min-height: 0; /* 3. CRITICAL FIX: Allows the container to shrink below content size */
+
+      text-align: left;
+    }
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .back{
+    //border: 1px solid red;
+    .vinted-item-image{
+      max-height: 60%;
+    }
+    .sauce {
+      .sauce-image {
+        //border: 1px solid red;
+        flex: 8; /* Takes 7 portions (70%) of remaining space */
+      }
+
+      .desc {
+        flex: 2; /* Takes 3 portions (30%) of remaining space */
+      }
+    }
+  }
+}
+
+// --- Keyframes for Blur Only ---
+@keyframes motion-blur {
+  0% { filter: blur(0px); }
+  15% { filter: blur(5px); } // Peak blur at max speed
+  60% { filter: blur(1px); } // Trail off
+  100% { filter: blur(0px); } // Sharp landing
+}
+
+// --- Content Styles (Unchanged) ---
+.number {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  font-size: 8rem;
   font-family: "Shrikhand", serif;
   font-weight: 400;
   color: #522504;
-  &.white-number{
+  line-height: 1;
+  // Removed z-index here too, not needed if structure is correct
+  pointer-events: none;
+
+  &.white-number {
     color: #ffffff;
   }
-  line-height: 1;
-  z-index: 2;         // Ensure it sits on top of background
 }
-
 .date-counter {
   position: absolute; // Fix: Pin to bottom right
   bottom: 7rem;
@@ -66,5 +309,42 @@
     font-size: 1.25rem;
     font-weight: 600;
     font-variant-numeric: tabular-nums; // Keeps timer numbers from jumping
+  }
+}
+.primary-button {
+  position: absolute;
+  bottom: 7rem;
+  right: 3rem;
+  z-index: 10;
+}
+
+.date-counter {
+  color: #522504;
+  text-align: right;
+
+  &.white-counter {
+    color: #ffffff;
+  }
+
+  span {
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
