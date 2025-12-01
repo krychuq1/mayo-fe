@@ -63,7 +63,8 @@
             <p class="vinted-item-title">{{ firstItem?.title }}</p>
             <p class="vinted-item-size">{{ firstItem?.size }} {{firstItem?.description}}</p>
             <p class="vinted-item-price-ship">
-              {{ firstItem?.priceWithShipping }}zł
+<!--              make always two digits-->
+              {{ firstItem?.priceWithShipping | number:'1.2-2' }}zł
             </p>
             <span>Zawiera Ochronę Kupujących</span>
           </div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
-import {NgClass} from '@angular/common';
+import {DecimalPipe, NgClass} from '@angular/common';
 import {CalendarService} from '../../services/calendar.service';
 import {VintedItem} from '../../services/types/vinted-item.model';
 import {AuthService} from '../../services/auth.service';
@@ -7,7 +7,8 @@ import {AuthService} from '../../services/auth.service';
 @Component({
   selector: 'app-calendar-day',
   imports: [
-    NgClass
+    NgClass,
+    DecimalPipe
   ], // Note: CommonModule is usually needed here unless you use @if in template
   templateUrl: './calendar-day.html',
   styleUrl: './calendar-day.scss',
@@ -97,9 +98,15 @@ export class CalendarDay implements OnInit, OnDestroy {
         clearInterval(this.timerId);
       }
     }, 1000);
-    if(this.dayNumber === 1 ) {
+    const now = new Date();
+    const polandDate = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }));
+
+    let day = polandDate.getDate();
+
+    if(this.dayNumber <= (day +1) ) {
       this.getItemForDay();
     }
+
 
   }
 
@@ -136,6 +143,7 @@ export class CalendarDay implements OnInit, OnDestroy {
   }
 
   getItemForDay(): void{
+    console.log('getting item for day ', this.dayNumber);
     this.calendarService.openDay(this.dayNumber).subscribe({
       next: (res) => {
         this.vintedItems = res;

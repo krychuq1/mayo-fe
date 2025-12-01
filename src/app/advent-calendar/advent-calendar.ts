@@ -21,7 +21,7 @@ import {CookieService} from 'ngx-cookie-service';
 export class AdventCalendar implements OnInit {
   customOptions: OwlOptions = {
     loop: false,
-    mouseDrag: false,
+    mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
     dots: true,
