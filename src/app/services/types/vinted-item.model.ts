@@ -9,6 +9,7 @@ export interface VintedItem {
   link: string;
   vintedItemUrls: string[];
   sauceUrls: string[];
+  isSold: boolean;
   dayId: number;
   createdAt: string;
 }

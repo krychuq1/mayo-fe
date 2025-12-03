@@ -41,14 +41,34 @@ export class CalendarDay implements OnInit, OnDestroy {
     return item.sauceUrls[0];
   }
 
-  get firstItemImage(): string {
+  get firstSauceImage(): string {
     const item = this.firstItem;
     if (!item) {
       return '';
     }
-    const image = (item.vintedItemUrls && item.vintedItemUrls[0]) || (item.sauceUrls && item.sauceUrls[0]);
+    const image = (item.sauceUrls && item.sauceUrls[0]);
     return image || 'logo.svg';
   }
+
+  get firstItemUrl(): string {
+    const item = this.firstItem;
+    console.log('here ', item);
+
+    if (!item || !item.vintedItemUrls || item.vintedItemUrls.length === 0) {
+      return '';
+    }
+    console.log('item url ', item.vintedItemUrls[0]);
+    return item.vintedItemUrls[0];
+  }
+  // get firstItemImage(): string {
+  //   console.log('first item ', this.firstItem);
+  //   const item = this.firstItem;
+  //   if (!item) {
+  //     return '';
+  //   }
+  //   const image = (item.vintedItemUrls && item.vintedItemUrls[0]) || (item.sauceUrls && item.sauceUrls[0]);
+  //   return image || 'logo.svg';
+  // }
 
   get backgroundImage(): string {
     if (this.isSecret) {

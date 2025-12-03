@@ -139,6 +139,8 @@
     position: static ;
   }
   .vinted-item-image{
+    z-index: -1;
+    position: relative;
     margin-top: 4.25rem;
     flex: 1 1 auto;
 
@@ -146,7 +148,21 @@
     max-height: 50%;
     width: auto;
   }
+
+  .sold-overlay1{
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: #FDD3D0;
+    font-size: 0.75rem;
+    color: #900B09;
+  }
+
   .vinted-item-details{
+    //border: 1px solid red;
+    position: relative;
     margin-top: 1rem;
     width: calc(100% - 2rem);
     display: flex;
