@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DOCUMENT, Inject, OnInit, Renderer2} from '@angular/core';
 import {CalendarDay} from './calendar-day/calendar-day';
 import {AuthService} from '../services/auth.service';
 import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
@@ -47,7 +47,9 @@ export class AdventCalendar implements OnInit {
     private fb: FormBuilder,
     public authService: AuthService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document
     ) {
 
     this.form = this.fb.group({
@@ -57,6 +59,8 @@ export class AdventCalendar implements OnInit {
   }
 
   ngOnInit(): void {
+    this.renderer.addClass(this.document.body, 'body-hidden');
+
     this.customOptions.startPosition = this.getStartingDay() -1;
     console.log((navigator.userAgent || navigator.vendor || '').toLowerCase());
   }

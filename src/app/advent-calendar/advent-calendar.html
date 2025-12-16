@@ -53,7 +53,7 @@
       @for (day of days; track day) {
         <ng-template carouselSlide>
           <app-calendar-day
-            [isSecret]="day > 7"
+            [isSecret]="day > 19"
             [isWhite]="day > 1"
             [dayNumber]="day"
             [isMissed]="checkIfUserHasMissedDay(day)"

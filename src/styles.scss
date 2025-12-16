@@ -8,5 +8,8 @@ body{
   padding: 0;
   background: $background-gradient;
   font-family: font.$font-family;
+}
+
+.body-hidden{
   overflow: hidden;
 }
