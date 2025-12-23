@@ -5,7 +5,7 @@ import {firstValueFrom} from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import {isPlatformBrowser} from '@angular/common';
 
-export const authGuard: CanActivateFn = async (route, state) => {
+export const videoGuard: CanActivateFn = async (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   const cookieService = inject(CookieService);
@@ -21,11 +21,10 @@ export const authGuard: CanActivateFn = async (route, state) => {
     const res = await firstValueFrom(authService.validateToken(token));
     authService.setUserWithCalendarData(res);
     const allDaysOpen = await firstValueFrom(authService.checkIfUserOpenAllDays(token));
-
     if(allDaysOpen) {
-      return router.createUrlTree(['/master-class']);
+      return true
     } else {
-      return true;
+      return router.createUrlTree(['/']);
     }
   } catch (e) {
     return router.createUrlTree(['/welcome']);

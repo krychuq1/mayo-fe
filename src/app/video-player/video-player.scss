@@ -1,0 +1,91 @@
+@use "sass:color";
+@use "../styles/fonts" as *;
+@use "../styles/colors" as *;
+@use "../styles/input" as *;
+@use "../styles/buttons" as *;
+
+.video-container {
+  padding: 1rem;
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .watermark-overlay {
+      position: absolute;
+      z-index: 10;
+      background-color: rgba(255, 255, 255, 0.5);
+      color: #000;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.5rem;
+      font-weight: 600;
+      pointer-events: none;
+      user-select: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: top 0.5s ease, left 0.5s ease;
+    }
+  }
+
+  .h1-holder{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  h1{
+    color: $font-primary-color;
+    font-family: $font-family;
+    font-size: 3rem;
+    line-height: 80%;
+    font-weight: 700;
+    letter-spacing: -0.96px;
+    margin: 0;
+  }
+  h3{
+    margin: -0.2rem 0 0.5rem 0;
+    font-size: 1.25rem;
+  }
+  .logo{
+    max-width: 8rem;
+  }
+  .desc{
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 140%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 0.75rem;
+    :first-child{
+      margin-top: 0;
+    }
+  }
+  .disclaimer{
+    padding: 0.75rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.50);
+    font-size: 0.625rem;
+    line-height: 140%;
+    gap: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    p{
+      margin: 0;
+    }
+  }
+}

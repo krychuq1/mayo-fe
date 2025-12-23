@@ -48,5 +48,11 @@ export class AuthService {
     return this._httpClient.put<UserWithCalendarData>(`${this.backendUrl}/open-day/${dayId}`, {}, { headers });
 
   }
+  checkIfUserOpenAllDays(token: string): Observable<boolean> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+    return this._httpClient.get<boolean>(`${this.backendUrl}/check-open-all-days`, { headers });
+  }
 
 }
