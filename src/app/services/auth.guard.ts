@@ -10,7 +10,6 @@ export const authGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
   const cookieService = inject(CookieService);
   const platformId = inject(PLATFORM_ID);
-  console.log('auth guard called', isPlatformBrowser(platformId));
 
   if(!isPlatformBrowser(platformId)) {
     return true;

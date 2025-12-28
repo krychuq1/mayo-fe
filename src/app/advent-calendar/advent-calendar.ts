@@ -1,8 +1,8 @@
-import {Component, DOCUMENT, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, DOCUMENT, Inject, OnInit, PLATFORM_ID, PlatformRef, Renderer2} from '@angular/core';
 import {CalendarDay} from './calendar-day/calendar-day';
 import {AuthService} from '../services/auth.service';
 import {CarouselModule, OwlOptions} from 'ngx-owl-carousel-o';
-import {NgClass} from '@angular/common';
+import {isPlatformBrowser, NgClass} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -49,7 +49,8 @@ export class AdventCalendar implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private readonly _platformId: Object
     ) {
 
     this.form = this.fb.group({
@@ -59,10 +60,13 @@ export class AdventCalendar implements OnInit {
   }
 
   ngOnInit(): void {
-    this.renderer.addClass(this.document.body, 'body-hidden');
+    if (isPlatformBrowser(this._platformId)) {
+      this.renderer.addClass(this.document.body, 'body-hidden');
 
-    this.customOptions.startPosition = this.getStartingDay() -1;
-    console.log((navigator.userAgent || navigator.vendor || '').toLowerCase());
+      this.customOptions.startPosition = this.getStartingDay() -1;
+      console.log((navigator.userAgent || navigator.vendor || '').toLowerCase());
+    }
+
   }
 
   get isInactiveUser(): boolean {

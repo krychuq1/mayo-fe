@@ -2,6 +2,9 @@ import { Component, inject, signal, afterNextRender, OnDestroy, OnInit } from '@
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import {AuthService} from '../services/auth.service';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-video-player',
@@ -13,7 +16,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class VideoPlayerComponent implements OnInit, OnDestroy {
   private sanitizer = inject(DomSanitizer);
   private cookieService = inject(CookieService);
-
+  private authService = inject(AuthService);
+  private http = inject(HttpClient);
   videoUrl = signal<SafeUrl | null>(null);
 
   overlayStyle = signal<{ top: string; left: string; display: string }>({
@@ -24,7 +28,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   private overlayInterval: any;
   private overlayTimeout: any;
-  userEmail = 'patrycja.musur@gmail.com';
+  userEmail = this.authService.userWithCalendarData?.email || '1234!!23';
 
   constructor() {
     afterNextRender(() => {
@@ -83,11 +87,21 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   setupStream() {
+    const streamUrl = `${environment.backend}/videos`;
+
     const token = this.cookieService.get('mayo_auth_token');
     const fileKey = 'low/';
-    const baseUrl = `http://192.168.0.107:3000/videos/${encodeURIComponent(fileKey)}`;
+    const baseUrl = `${environment.backend}/videos/${encodeURIComponent(fileKey)}`;
     const fullUrl = `${baseUrl}?token=${token}`;
-
-    this.videoUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl));
+    this.http.get<{ url: string }>(fullUrl).subscribe({
+      next: (response) => {
+        // [5] Set the S3 URL as the video source
+        // This makes the browser download directly from AWS, bypassing your server
+        this.videoUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(response.url));
+      },
+      error: (err) => {
+      }
+    });
+    // this.videoUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl));
   }
 }
