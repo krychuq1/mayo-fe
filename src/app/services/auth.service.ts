@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {registerModel, UserWithCalendarData} from './types/auth.model';
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
-import {CookieService} from 'ngx-cookie-service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { registerModel, TokenResponse, UserWithCalendarData } from './types/auth.model';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class AuthService {
 
   }
 
-  registerUser(registerBody: registerModel): Observable<{token: string}> {
-    return this._httpClient.post<{token: string}>(this.backendUrl, registerBody);
+  registerUser(registerBody: registerModel): Observable<TokenResponse> {
+    return this._httpClient.post<TokenResponse>(this.backendUrl, registerBody);
   }
 
   validateToken(token: string): Observable<UserWithCalendarData> {
@@ -33,7 +33,14 @@ export class AuthService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`);
-    return this._httpClient.get<UserWithCalendarData>(`${this.backendUrl}/activate-user`, { headers });
+    return this._httpClient.get<UserWithCalendarData>(`${this.backendUrl}/activate-user/${token}`, { headers });
+  }
+
+  checkTokenStatus(token: string): Observable<boolean> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+    return this._httpClient.get<boolean>(`${this.backendUrl}/check-token-status`, { headers });
   }
 
   setUserWithCalendarData(data: UserWithCalendarData) {
@@ -48,6 +55,8 @@ export class AuthService {
     return this._httpClient.put<UserWithCalendarData>(`${this.backendUrl}/open-day/${dayId}`, {}, { headers });
 
   }
+
+
   checkIfUserOpenAllDays(token: string): Observable<boolean> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
