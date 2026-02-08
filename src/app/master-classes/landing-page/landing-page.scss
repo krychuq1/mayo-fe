@@ -1,0 +1,271 @@
+@use "../../styles/fonts" as *;
+@use "../../styles/colors" as *;
+
+
+.landing-page {
+  max-width: 500px;
+  margin: 0 auto;
+
+  .logo{
+    padding: 0 1.25rem;
+    img{
+      width: 5.25rem;
+
+    }
+    margin-top: 1.5rem;
+  }
+  .cover-holder{
+    position: relative;
+    .cover {
+      width: 100%;
+      display: block;
+    }
+    .timer{
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.50);
+      padding: 4px 6px;
+      display: flex;
+      width: fit-content;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      p{
+        margin: 0;
+        font-size: 0.625rem;
+      }
+    }
+    .info{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      height: 1.5625rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.50);
+    }
+  }
+
+  .content {
+    padding: 0 1.25rem;
+  }
+
+  .header{
+    padding: 0 1.25rem;
+    margin-bottom: 1rem;
+    .masterclass-logo{
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    img{
+      width: 1.875rem;
+    }
+
+    .title {
+      font-family: $font-family;
+      color: $font-primary-color;
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-family: $font-family;
+      color: $font-default-color;
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1;
+      margin: 0;
+    }
+  }
+
+  .lessons-link {
+    font-family: $font-family;
+    color: $font-primary-color;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+
+  .pricing-box {
+
+
+    .feature {
+      color: #fff;
+      font-family: $font-family;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin: 0 0 0.25rem;
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      // 12px to rem
+      margin: 1.25rem 0 0.75rem 0;
+
+      .current-price {
+        color: #14AE5C;
+        font-family: $font-family;
+        font-size: 2rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .price-info {
+        color: #757575;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+    }
+
+    .buy-button {
+      width: 100%;
+      background: $primary-color;
+      color: $font-white;
+      font-family: $font-family;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 1rem;
+      border: none;
+      border-radius: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.25rem;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    .spinner {
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    .error {
+      color: $error-color;
+      font-family: $font-family;
+      font-size: 0.8125rem;
+      text-align: center;
+      margin: 0.5rem 0 0;
+    }
+
+    .contact-link {
+      color: #fff;
+      font-family: $font-family;
+      font-size: 0.875rem;
+      text-decoration: underline;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 0.75rem;
+    }
+  }
+  .details-header{
+    margin: 1.8125rem 0 1rem 0;
+  }
+
+  .section {
+    &.white{
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    margin-bottom: 1.75rem;
+
+    h2 {
+      font-family: $font-family;
+      color: $font-default-color;
+      font-size: 0.875rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin: 1.5rem 0 0 0;
+    }
+
+    h3{
+      font-size: 0.75rem;
+      margin: 0;
+    }
+
+    h4{
+      font-size: 0.75rem;
+      margin: 0;
+      font-weight: 400;
+      text-decoration: underline;
+    }
+
+    ul{
+      padding: 0 0 0 20px;
+      margin: 0;
+      &.small{
+        li{
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    p {
+      font-family: $font-family;
+      color: $font-default-color;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 0rem;
+      &.small{
+        font-size: 0.75rem;
+      }
+    }
+
+    .learn-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        font-family: $font-family;
+        color: $font-default-color;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        padding-left: 1rem;
+        position: relative;
+
+        &::before {
+          content: "–";
+          position: absolute;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .privacy-notice{
+
+    font-size: 0.625rem;
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.50);
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+  }
+
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

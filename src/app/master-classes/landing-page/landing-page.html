@@ -1,0 +1,91 @@
+<div class="landing-page">
+  <div class="logo">
+    <img src="logo.svg" alt="App Logo">
+  </div>
+  <div class="header">
+    <div class="masterclass-logo">
+      <img src="blue-logo-sign.svg">
+      <h1 class="title">Masterclass</h1>
+    </div>
+    <p class="subtitle">Jak szukać na vinted, żeby znaleźć.</p>
+  </div>
+
+  <div class="cover-holder">
+    <div class="timer">
+      <p>Znika za: <b>{{days()}} {{daysLabel()}} @if (hours() > 0) {{{hours()}} {{hoursLabel()}} }{{minutes()}}min</b></p>
+    </div>
+    <img src="landing-page/cover.png" alt="Masterclass Cover" class="cover" />
+    <div class="info">
+      <span>1h materiał wideo</span>
+      <span>•</span>
+      <span>5 modułów</span>
+      <span>•</span>
+      <span>live z szukania na vinted</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+
+    <div class="pricing-box">
+      <div class="price">
+        <span class="current-price">129 zł</span>
+        <span class="price-info">/ dostęp bez limitów czasowych</span>
+      </div>
+      <button class="buy-button" (click)="buy()" [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner"></span>
+        } @else {
+          Kupuję
+        }
+      </button>
+      @if (error()) {
+        <p class="error">{{error()}}</p>
+      }
+    </div>
+
+    <h2 class="details-header">Szczegóły:</h2>
+
+    <section class="section white">
+      <p>Hej! 😌 Nagrałam masterclass, w której pokazuję dokładnie, jak szukam na Vinted, krok po kroku, na realnych przykładach.</p>
+      <h2>Dla kogo?</h2>
+      <p>Dla osób, które myślą „nie umiem szukać”, oraz dla tych, którzy już szukają, ale chcą zobaczyć mój proces.</p>
+      <h2>Czego się nauczysz?</h2>
+      <ul>
+        <li>jak trenować algorytm</li>
+        <li>co wpisywać w wyszukiwarkę</li>
+        <li>jak czytać oferty i wyłapywać najlepsze rzeczy, zanim znikną</li>
+        <li>jak szukać spokojnie i świadomie</li>
+      </ul>
+      <p>
+        <u><b>W materiale: szukanie na żywo, realne przykłady i moje triki.</b></u> Jeśli znasz moje przeglądy Vinted i hot itemy ze stories, wiesz, że to nie teoria.
+      </p>
+      <h2>Czy to sekretna wiedza?</h2>
+      <p>I tak, i nie. Z jednej strony, część tematów jest poruszana w jakiś sposób w Internecie. Ale z drugiej, dzielę się też moimi trikami, które sama wypracowałam, szukając przez lata. </p>
+      <h2>Czy tipy zadziałają na 100%?</h2>
+      <p>Nie mogę dać stuprocentowej gwarancji. Efekty zależą od poświęconego czasu, praktyki i zaangażowania. Mogę natomiast wziąć odpowiedzialność za wiedzę, którą przekazuję. Jeśli przerobisz materiał uważnie i zaczniesz wdrażać wskazówki, szybko zobaczysz różnicę.</p>
+    </section>
+
+    <section class="section white">
+      <h3>Spis treści:</h3>
+      <h4>MODUŁ 1</h4>
+      <p class="small">Dlaczego nic nie znajdujesz? </p>
+      <h4>MODUŁ 2</h4>
+      <p class="small">Algorytm Vinted i jak go ustawić pod siebie</p>
+      <h4>MODUŁ 3</h4>
+      <p class="small">Szukanie jak zawodowiec, między innymi:</p>
+      <ul class="small">
+        <li>dlaczego widzisz tylko 10 stron na Vinted i jak znaleźć całą resztę?</li>
+        <li>kategorie i kombinacje</li>
+      </ul>
+      <h4>MODUŁ 5</h4>
+      <p class="small">Timing polowania</p>
+    </section>
+  </div>
+
+  <div class="privacy-notice">
+    <p>Materiał jest objęty prawami autorskimi i przeznaczony wyłącznie do użytku własnego.</p>
+  </div>
+
+  <app-mc-footer />
+</div>

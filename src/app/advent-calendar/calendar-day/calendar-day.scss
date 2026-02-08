@@ -214,15 +214,8 @@
       //gap: 3rem;
       flex: 0 0 auto; /* Header takes only the space it needs, doesn't grow/shrink */
       padding-bottom: 0rem; /* Added spacing */
-      .arrow{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 2rem;
-        height: 2rem;
-        img{
-          width: 1.5rem;
-        }
+      h1{
+        font-family: $font-family;
       }
 
       p {
