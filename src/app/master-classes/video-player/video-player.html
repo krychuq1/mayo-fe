@@ -1,0 +1,35 @@
+<div class="video-player">
+  <app-mc-header></app-mc-header>
+
+  <div class="video-holder" #videoHolder>
+    <iframe
+      [src]="safeVideoUrl"
+      loading="lazy"
+      style="border:none;position:absolute;top:0;height:100%;width:100%;"
+      allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Single watermark that flashes at random position every 60s for 2s -->
+    <div
+      class="watermark-flash"
+      [class.visible]="showWatermark()"
+      [style.top.%]="watermarkTop()"
+      [style.left.%]="watermarkLeft()"
+    >
+      {{ userEmail }}
+    </div>
+
+    <!-- Custom fullscreen button -->
+    <button class="fullscreen-btn" (click)="toggleFullscreen()" title="Fullscreen">
+      <svg *ngIf="!isFullscreen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+      <svg *ngIf="isFullscreen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M4 14h6v6m10-10h-6V4M4 10h6V4m10 10h-6v6"/>
+      </svg>
+    </button>
+  </div>
+
+  <app-mc-footer></app-mc-footer>
+</div>

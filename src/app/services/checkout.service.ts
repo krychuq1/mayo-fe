@@ -14,4 +14,8 @@ export class CheckoutService {
   createCheckoutSession(): Observable<{ url: string }> {
     return this.httpClient.get<{ url: string }>(this.url);
   }
+
+  getSessionEmail(sessionId: string): Observable<{ email: string }> {
+    return this.httpClient.get<{ email: string }>(`${this.url}/session/${sessionId}`);
+  }
 }

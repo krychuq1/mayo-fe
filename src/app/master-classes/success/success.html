@@ -10,7 +10,13 @@
 
     <p class="description">
       Link do masterclass wysłałam na
-      <b>maja.janek&#64;gmail.com</b>.
+      @if (loading()) {
+        <span class="loader"></span>
+      } @else if (email()) {
+        <b>{{email()}}</b>.
+      } @else {
+        Twój email.
+      }
       To jedyny link, przez który wejdziesz do materiałów, więc warto go zachować.
     </p>
 

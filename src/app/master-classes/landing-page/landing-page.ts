@@ -2,10 +2,11 @@ import {Component, signal, OnInit, OnDestroy, PLATFORM_ID, inject} from '@angula
 import {isPlatformBrowser} from '@angular/common';
 import {CheckoutService} from '../../services/checkout.service';
 import {McFooter} from '../footer/footer';
+import {McHeader} from '../mc-header/mc-header';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [McFooter],
+  imports: [McFooter, McHeader],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.scss'
 })

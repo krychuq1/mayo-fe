@@ -1,0 +1,45 @@
+<div class="expired-page">
+  <app-mc-header></app-mc-header>
+
+  <div class="content">
+    <img src="landing-page/success/envelop.png" alt="Envelope" class="envelope" />
+
+    <h1 class="title">Link wygasł</h1>
+
+    <p class="description">
+      Twój link do masterclass wygasł. Podaj swój email, a wyślę Ci nowy link.
+    </p>
+
+    @if (success()) {
+      <p class="message success-message">
+        Nowy link został wysłany! Sprawdź swoją skrzynkę.
+      </p>
+    } @else {
+      <form class="form" (ngSubmit)="submit()">
+        <input
+          type="email"
+          class="email-input"
+          placeholder="Twój email"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+        <button type="submit" class="submit-btn" [disabled]="loading() || !email">
+          @if (loading()) {
+            <span class="loader"></span>
+          } @else {
+            Wyślij nowy link
+          }
+        </button>
+      </form>
+
+      @if (error()) {
+        <p class="message error-message">
+          Nie udało się wysłać linku. Sprawdź email i spróbuj ponownie.
+        </p>
+      }
+    }
+  </div>
+
+  <app-mc-footer></app-mc-footer>
+</div>

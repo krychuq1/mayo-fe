@@ -1,0 +1,120 @@
+@use "../../../styles/fonts" as *;
+@use "../../../styles/colors" as *;
+
+.expired-page {
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    padding: 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 3rem;
+
+    .envelope {
+      width: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .title {
+      font-family: $font-family;
+      color: $font-primary-color;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0 0 1rem;
+    }
+
+    .description {
+      font-family: $font-family;
+      color: $font-default-color;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 0 0 2rem;
+    }
+
+    .form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .email-input {
+      font-family: $font-family;
+      font-size: 0.875rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: $font-primary-color;
+      }
+    }
+
+    .submit-btn {
+      font-family: $font-family;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: $font-primary-color;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.75rem;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .loader {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .message {
+      font-family: $font-family;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .success-message {
+      background: rgba(20, 174, 92, 0.1);
+      color: #14AE5C;
+    }
+
+    .error-message {
+      background: rgba(255, 107, 107, 0.1);
+      color: #FF6B6B;
+    }
+  }
+}

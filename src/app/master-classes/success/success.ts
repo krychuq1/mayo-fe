@@ -1,6 +1,8 @@
-import {Component, OnInit, PLATFORM_ID, inject} from '@angular/core';
+import {Component, OnInit, signal, PLATFORM_ID, inject} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 import {McFooter} from '../footer/footer';
+import {CheckoutService} from '../../services/checkout.service';
 import confetti from 'canvas-confetti';
 
 @Component({
@@ -11,8 +13,28 @@ import confetti from 'canvas-confetti';
 })
 export class Success implements OnInit {
   private platformId = inject(PLATFORM_ID);
+  private route = inject(ActivatedRoute);
+  private checkoutService = inject(CheckoutService);
+
+  email = signal('');
+  loading = signal(false);
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const sessionId = params['session_id'];
+      if (sessionId) {
+        this.loading.set(true);
+        this.checkoutService.getSessionEmail(sessionId).subscribe({
+          next: (res) => {
+            this.email.set(res.email);
+            this.loading.set(false);
+          },
+          error: () => {
+            this.loading.set(false);
+          },
+        });
+      }
+    });
     if (isPlatformBrowser(this.platformId)) {
       this.fireConfetti();
     }
