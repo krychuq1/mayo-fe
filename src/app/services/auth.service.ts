@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {registerModel, UserWithCalendarData} from './types/auth.model';
+import {registerModel, User, UserWithCalendarData} from './types/auth.model';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
@@ -11,6 +11,7 @@ import {CookieService} from 'ngx-cookie-service';
 export class AuthService {
   backendUrl = `${environment.backend}/auth`;
   userWithCalendarData: UserWithCalendarData | null = null;
+  user: User | null = null;
   constructor(
     private readonly _httpClient: HttpClient,
     private readonly cookieService: CookieService,
@@ -29,11 +30,22 @@ export class AuthService {
     return this._httpClient.get<UserWithCalendarData>(`${this.backendUrl}/validate-token`, { headers });
   }
 
+  validateVideoAccess(token: string): Observable<User> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+    return this._httpClient.get<User>(`${this.backendUrl}/validate-video-access`, { headers });
+  }
+
   activateUser(token: string): Observable<UserWithCalendarData> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`);
     return this._httpClient.get<UserWithCalendarData>(`${this.backendUrl}/activate-user`, { headers });
+  }
+
+  setUser(user: User) {
+    this.user = user;
   }
 
   setUserWithCalendarData(data: UserWithCalendarData) {

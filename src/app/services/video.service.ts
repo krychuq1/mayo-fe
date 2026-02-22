@@ -16,6 +16,7 @@ export class VideoService {
 
   getVideo(token: string): Observable<{ iframeUrl: string; token: string; expires: number }> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    console.log('calling getVideo with token:', token);
     return this.httpClient.get<{ iframeUrl: string; token: string; expires: number }>(this.url, { headers });
   }
 

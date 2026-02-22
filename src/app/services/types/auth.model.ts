@@ -1,6 +1,13 @@
 export interface registerModel {
   email: string;
 }
+
+export type User = {
+  email       : string;
+  createdAt  : Date;
+  updatedAt  : Date;
+}
+
 export type UserWithCalendarData = {
   email       : string;
   isActive  : boolean;

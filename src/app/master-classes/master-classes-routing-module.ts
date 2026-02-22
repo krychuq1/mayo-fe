@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'success', component: Success},
   { path: 'video/expired', component: Expired },
   { path: 'video/:token', component: VideoPlayer, canActivate: [mcVideoGuard] },
+
 ]
 
 @NgModule({
