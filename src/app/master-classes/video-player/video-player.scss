@@ -27,6 +27,29 @@
   }
 }
 
+// iOS CSS-simulated fullscreen (Fullscreen API not supported for non-video elements on iOS)
+.video-holder.ios-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  padding-top: 0 !important;
+  z-index: 9999;
+  background: #000;
+
+  .watermark-flash {
+    z-index: 10000;
+  }
+
+  .fullscreen-btn {
+    position: fixed;
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    right: max(20px, env(safe-area-inset-right, 20px));
+    z-index: 10001;
+  }
+}
+
 // Flashing watermark
 .watermark-flash {
   position: absolute;

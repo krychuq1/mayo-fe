@@ -73,8 +73,19 @@ export class VideoPlayer implements OnInit {
     }, 2000); // visible for 2 seconds
   }
 
+  private isIOS(): boolean {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  }
+
   toggleFullscreen(): void {
     const container = this.videoHolderRef.nativeElement;
+
+    if (this.isIOS()) {
+      // CSS fallback for iOS (Fullscreen API not supported on non-video elements)
+      this.isFullscreen = !this.isFullscreen;
+      container.classList.toggle('ios-fullscreen', this.isFullscreen);
+      return;
+    }
 
     if (!document.fullscreenElement) {
       container.requestFullscreen().catch((err: Error) => {
@@ -86,7 +97,8 @@ export class VideoPlayer implements OnInit {
   }
 
   @HostListener('document:fullscreenchange')
+  @HostListener('document:webkitfullscreenchange')
   onFullscreenChange(): void {
-    this.isFullscreen = !!document.fullscreenElement;
+    this.isFullscreen = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
   }
 }
