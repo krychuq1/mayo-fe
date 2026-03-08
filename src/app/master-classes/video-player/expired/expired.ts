@@ -1,13 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { McHeader } from '../../mc-header/mc-header';
-import { McFooter } from '../../footer/footer';
 import { VideoService } from '../../../services/video.service';
 
 @Component({
   selector: 'app-expired',
   standalone: true,
-  imports: [FormsModule, McHeader, McFooter],
+  imports: [FormsModule],
   templateUrl: './expired.html',
   styleUrl: './expired.scss',
 })

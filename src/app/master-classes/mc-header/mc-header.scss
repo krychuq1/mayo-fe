@@ -2,13 +2,13 @@
 @use "../../styles/colors" as *;
 
 .logo{
+  display: block;
   padding: 0 1.25rem;
+  margin-top: 1.5rem;
 
   img{
     width: 5.25rem;
-
   }
-  margin-top: 1.5rem;
 }
 
 .header{
