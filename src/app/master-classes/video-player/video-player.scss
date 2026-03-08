@@ -1,7 +1,14 @@
+.video-player {
+  padding:  0 1.25rem;
+}
+
 .video-holder {
   position: relative;
   padding-top: 56.25%;
+  //margin: 0 1.25rem;
   background: #000;
+  border-radius: 0.25rem;
+  overflow: hidden;
 
   &:fullscreen,
   &:-webkit-full-screen {

@@ -1,5 +1,6 @@
 @use "../../../styles/fonts" as *;
 @use "../../../styles/colors" as *;
+@use "../../../styles/buttons" as *;
 
 .expired-page {
   max-width: 500px;
@@ -7,7 +8,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
+  .logo{
+    margin: 1.5rem auto 0 auto;
+    width: 10rem;
+  }
   .content {
     flex: 1;
     padding: 0 1.25rem;
@@ -15,7 +19,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 4rem;
+    .title-holder{
+      display: flex;
+    }
 
     .envelope {
       width: 4rem;
@@ -34,9 +41,9 @@
     .description {
       font-family: $font-family;
       color: $font-default-color;
-      font-size: 0.875rem;
-      line-height: 1.6;
-      margin: 0 0 2rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      margin: 0 0 1.5rem;
     }
 
     .form {
@@ -62,24 +69,7 @@
     }
 
     .submit-btn {
-      font-family: $font-family;
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 0.75rem 1rem;
-      border: none;
-      border-radius: 8px;
-      background: $font-primary-color;
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 2.75rem;
-
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
+      @include mc-buy-button;
     }
 
     .loader {

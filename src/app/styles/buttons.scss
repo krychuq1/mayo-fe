@@ -16,3 +16,24 @@
     width: 0.8rem;
   }
 }
+
+@mixin mc-buy-button {
+  width: 100%;
+  background: $primary-color;
+  color: $font-white;
+  font-family: $font-family;
+  font-size: 1rem;
+  font-weight: 400;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

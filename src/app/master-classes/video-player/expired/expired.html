@@ -1,13 +1,15 @@
 <div class="expired-page">
-  <app-mc-header></app-mc-header>
+<!--  <app-mc-header></app-mc-header>-->
+  <img src="logo.svg" alt="App Logo" class="logo">
 
   <div class="content">
-    <img src="landing-page/success/envelop.png" alt="Envelope" class="envelope" />
-
-    <h1 class="title">Link wygasł</h1>
+    <div class="title-holder">
+      <h1 class="title">Link wygasł ⏰</h1>
+    </div>
 
     <p class="description">
-      Twój link do masterclass wygasł. Podaj swój email, a wyślę Ci nowy link.
+      Podaj adres e-mail, a my wyślemy<br>
+      nowy link do Masterclassy 😌
     </p>
 
     @if (success()) {
@@ -19,12 +21,12 @@
         <input
           type="email"
           class="email-input"
-          placeholder="Twój email"
+          placeholder="przykład@gmail.com"
           [(ngModel)]="email"
           name="email"
           required
         />
-        <button type="submit" class="submit-btn" [disabled]="loading() || !email">
+        <button type="submit" class="submit-btn" [disabled]="loading()">
           @if (loading()) {
             <span class="loader"></span>
           } @else {

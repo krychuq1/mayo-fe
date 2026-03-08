@@ -1,5 +1,6 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/colors" as *;
+@use "../../styles/buttons" as *;
 
 
 .landing-page {
@@ -108,7 +109,7 @@
       align-items: center;
       gap: 0.75rem;
       // 12px to rem
-      margin: 1.25rem 0 0.75rem 0;
+      margin: 1.25rem 0 0.35rem 0;
 
       .current-price {
         color: #14AE5C;
@@ -125,25 +126,7 @@
     }
 
     .buy-button {
-      width: 100%;
-      background: $primary-color;
-      color: $font-white;
-      font-family: $font-family;
-      font-size: 1rem;
-      font-weight: 400;
-      padding: 1rem;
-      border: none;
-      border-radius: 28px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 3.25rem;
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
+      @include mc-buy-button;
     }
 
     .spinner {
@@ -176,6 +159,8 @@
     }
   }
   .details-header{
+    font-size: 1.25rem;
+    font-weight: 600;
     margin: 1.8125rem 0 1rem 0;
   }
 
@@ -185,7 +170,7 @@
       border-radius: 12px;
       padding: 12px;
     }
-    margin-bottom: 1.75rem;
+    margin-bottom: 0.75rem;
 
     h2 {
       font-family: $font-family;
@@ -249,19 +234,6 @@
         }
       }
     }
-  }
-
-  .privacy-notice{
-
-    font-size: 0.625rem;
-    display: flex;
-    padding: 12px;
-    flex-direction: column;
-    align-items: flex-start;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.50);
-    margin-bottom: 1.5rem;
-    margin-top: 2rem;
   }
 
 }

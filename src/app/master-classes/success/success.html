@@ -4,24 +4,26 @@
   </div>
 
   <div class="content">
-    <img src="landing-page/success/envelop.png" alt="Envelope" class="envelope" />
+    <div class="section-white">
+      <img src="landing-page/success/envelop.png" alt="Envelope" class="envelope" />
 
-    <h1 class="title">Dostęp już do Ciebie leci</h1>
+      <h1 class="title">Dostęp już do Ciebie leci</h1>
 
-    <p class="description">
-      Link do masterclass wysłałam na
-      @if (loading()) {
-        <span class="loader"></span>
-      } @else if (email()) {
-        <b>{{email()}}</b>.
-      } @else {
-        Twój email.
-      }
-      To jedyny link, przez który wejdziesz do materiałów, więc warto go zachować.
-    </p>
+      <p class="description">
+        Link do masterclass wysłałam na
+        @if (loading()) {
+          <span class="loader"></span>
+        } @else if (email()) {
+          <b>{{email()}}</b>.
+        } @else {
+          Twój email.
+        }
+        To jedyny link, przez który wejdziesz do materiałów, więc warto go zachować.
+      </p>
 
+    </div>
     <p class="thanks">
-      Dziękuję za zakup 💛 jeśli masz ochotę daj znać na <b>Instagramie</b> jak się podobał materiał!
+      Dziękuję za zakup 💕 jeśli masz ochotę<br> daj znać na <u>Instagramie</u> jak się podobał materiał!
     </p>
   </div>
 

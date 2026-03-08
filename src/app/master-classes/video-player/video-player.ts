@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { McFooter } from '../footer/footer';
 import { McHeader } from '../mc-header/mc-header';
 import { VideoService } from '../../services/video.service';
+import {McPrivacyNotice} from '../privacy-notice/privacy-notice';
 
 @Component({
   selector: 'app-video-player',
@@ -12,6 +13,7 @@ import { VideoService } from '../../services/video.service';
     CommonModule,
     McFooter,
     McHeader,
+    McPrivacyNotice,
   ],
   templateUrl: './video-player.html',
   styleUrl: './video-player.scss',
