@@ -30,7 +30,7 @@ export class AuthService {
     return this._httpClient.get<UserWithCalendarData>(`${this.backendUrl}/validate-token`, { headers });
   }
 
-  validateVideoAccess(token: string): Observable<User> {
+  Let (token: string): Observable<User> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`);
@@ -60,6 +60,10 @@ export class AuthService {
     return this._httpClient.put<UserWithCalendarData>(`${this.backendUrl}/open-day/${dayId}`, {}, { headers });
 
   }
+  unsubscribe(email: string): Observable<void> {
+    return this._httpClient.get<void>(`${environment.backend}/auth/unsubscribe/${email}`);
+  }
+
   checkIfUserOpenAllDays(token: string): Observable<boolean> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')

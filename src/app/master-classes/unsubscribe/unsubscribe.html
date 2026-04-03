@@ -1,0 +1,32 @@
+<div class="unsubscribe-page">
+  <div class="logo">
+    <img src="logo.svg" alt="App Logo">
+  </div>
+
+  <div class="content">
+    <div class="section-white">
+      @if (loading()) {
+        <span class="loader"></span>
+      } @else if (success()) {
+        <h1 class="title">Unsubscribe!</h1>
+
+        <p class="description">
+          Już nie otrzymasz od nas więcej maili marketingowych.
+        </p>
+
+        <p class="note">
+          Szkoda, że odchodzisz, ale szanujemy Twoją decyzję 💛<br>
+          Jeśli kiedykolwiek zmienisz zdanie — zawsze jesteś mile widziana z powrotem!
+        </p>
+      } @else {
+        <h1 class="title">Ups!</h1>
+
+        <p class="description">
+          Coś poszło nie tak. Spróbuj ponownie później.
+        </p>
+      }
+    </div>
+  </div>
+
+  <app-mc-footer />
+</div>
