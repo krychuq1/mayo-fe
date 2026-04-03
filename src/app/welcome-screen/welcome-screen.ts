@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
-import {AuthService} from '../services/auth.service';
-import {CookieService} from 'ngx-cookie-service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-welcome-screen',
@@ -17,8 +17,8 @@ export class WelcomeScreen implements OnInit {
   submitted = false;
 
   constructor(private fb: FormBuilder, private router: Router,
-              private readonly authService: AuthService, private route: ActivatedRoute,
-              private cookieService: CookieService) {
+    private readonly authService: AuthService, private route: ActivatedRoute,
+    private cookieService: CookieService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -39,16 +39,15 @@ export class WelcomeScreen implements OnInit {
     }
     this.authService.registerUser(this.form.value).subscribe({
       next: (res) => {
-        this.router.navigate(['/email-confirmation'], { queryParams: { email: this.form.value.email } });
-
-        if(res?.token) {
-          setTimeout(() => {
-            this.cookieService.set('mayo_auth_token', res.token, 30, '/');
-          }, 2000);
-
+        if (res?.token) {
+          this.cookieService.set('mayo_auth_token', res.token, 30, '/');
         }
-        // Handle successful registration if needed
 
+        if (res.isTokenActivated) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/email-confirmation'], { queryParams: { email: this.form.value.email } });
+        }
       },
       error: () => {
         console.log('we are here');

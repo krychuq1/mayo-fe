@@ -27,6 +27,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
       return true;
     }
   } catch (e) {
+    console.log('Auth guard error:', e);
     return router.createUrlTree(['/welcome']);
 
   }
