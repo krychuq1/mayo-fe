@@ -15,7 +15,7 @@ export class LandingPage implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
   private checkoutService = inject(CheckoutService);
   private intervalId: ReturnType<typeof setInterval> | null = null;
-  private readonly deadline = new Date('2026-02-18T00:00:00+01:00');
+  private readonly deadline = new Date('2026-04-26T00:00:00+01:00');
 
   days = signal(0);
   hours = signal(0);
