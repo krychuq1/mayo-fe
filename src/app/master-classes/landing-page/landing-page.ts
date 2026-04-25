@@ -24,6 +24,7 @@ export class LandingPage implements OnInit, OnDestroy {
   hoursLabel = signal('godz.');
   loading = signal(false);
   error = signal('');
+  expired = signal(false);
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -46,6 +47,11 @@ export class LandingPage implements OnInit, OnDestroy {
       this.minutes.set(0);
       this.daysLabel.set('dni');
       this.hoursLabel.set('godz.');
+      this.expired.set(true);
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
       return;
     }
     const totalMinutes = Math.floor(diff / 60_000);
@@ -61,6 +67,9 @@ export class LandingPage implements OnInit, OnDestroy {
   }
 
   buy() {
+    if (this.expired()) {
+      return;
+    }
     this.loading.set(true);
     this.error.set('');
     this.checkoutService.createCheckoutSession().subscribe({

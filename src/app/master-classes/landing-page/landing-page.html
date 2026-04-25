@@ -24,9 +24,16 @@
         <span class="current-price">129 zł</span>
         <span class="price-info">/ dostęp bez limitów czasowych</span>
       </div>
-      <button class="buy-button" (click)="buy()" [disabled]="loading()">
+      <button
+        class="buy-button"
+        [class.expired]="expired()"
+        (click)="buy()"
+        [disabled]="loading() || expired()"
+      >
         @if (loading()) {
           <span class="spinner"></span>
+        } @else if (expired()) {
+          Niedostępne
         } @else {
           Kupuję
         }

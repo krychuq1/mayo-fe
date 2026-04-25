@@ -127,6 +127,14 @@
 
     .buy-button {
       @include mc-buy-button;
+
+      &.expired,
+      &.expired:disabled {
+        background: #B0B0B0;
+        color: #fff;
+        opacity: 1;
+        cursor: not-allowed;
+      }
     }
 
     .spinner {
