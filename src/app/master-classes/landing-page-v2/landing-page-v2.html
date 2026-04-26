@@ -1,0 +1,34 @@
+<div class="landing-page-v2">
+  <a class="logo" routerLink="/">
+    <img src="logo.svg" alt="Mayo">
+  </a>
+
+  <div class="hero">
+    <h1 class="title"><img class="asterisk" src="landing-page-v2/asterisk.svg" alt="*" />¡hola!</h1>
+    <p class="subtitle">
+      jaaak miło, że tu jesteś!<br />
+      Mayo się rozwija. Ciąg dalszy wkrótce 😊
+    </p>
+  </div>
+
+  <div class="content">
+    <h2 class="products-header">Produkty:</h2>
+
+    @for (product of products; track product.id) {
+      <article
+        class="product-card"
+        [class.clickable]="product.link"
+        (click)="openProduct(product)"
+      >
+        <img class="thumbnail" [src]="product.thumbnail" [alt]="product.title" />
+        <div class="details">
+          <span class="badge" [class]="'badge-' + product.badgeType">{{ product.badge }}</span>
+          <h3 class="product-title">{{ product.title }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+        </div>
+      </article>
+    }
+  </div>
+
+  <app-mc-footer />
+</div>

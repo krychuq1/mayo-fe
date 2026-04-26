@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LandingPage} from './landing-page/landing-page';
+import {LandingPageV2} from './landing-page-v2/landing-page-v2';
 import {Success} from './success/success';
 import {VideoPlayer} from './video-player/video-player';
 import {Expired} from './video-player/expired/expired';
@@ -11,7 +12,8 @@ import {Contact} from './contact/contact';
 import {Unsubscribe} from './unsubscribe/unsubscribe';
 
 const routes: Routes = [
-  { path: '', component: LandingPage},
+  { path: '', component: LandingPageV2},
+  { path: 'master-class', component: LandingPage},
   { path: 'success', component: Success},
   { path: 'unsubscribe/:email', component: Unsubscribe},
   { path: 'privacy-policy', component: PrivacyPolicy},

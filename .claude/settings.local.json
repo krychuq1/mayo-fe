@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npx ng build:*)",
       "Bash(dir:*)",
-      "Bash(find prisma:*)"
+      "Bash(find prisma:*)",
+      "Bash(npx --no-install ng build --configuration=development)"
     ]
   }
 }
