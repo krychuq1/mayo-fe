@@ -1,0 +1,80 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-north-1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve target environment
+        id: env
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "config=production" >> $GITHUB_OUTPUT
+            echo "bucket=mayo-app.com" >> $GITHUB_OUTPUT
+            echo "distribution=E3IF3SWCTDUXV8" >> $GITHUB_OUTPUT
+          else
+            echo "config=development" >> $GITHUB_OUTPUT
+            echo "bucket=dev.mayo-app.com" >> $GITHUB_OUTPUT
+            echo "distribution=EPR5MWB54Y62B" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build Angular app
+        run: npx ng build --configuration ${{ steps.env.outputs.config }}
+
+      - name: Prepare static output
+        run: |
+          if [ -f dist/mayo-fe/browser/index.csr.html ]; then
+            mv dist/mayo-fe/browser/index.csr.html dist/mayo-fe/browser/index.html
+          fi
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Sync hashed assets (long cache)
+        run: |
+          aws s3 sync dist/mayo-fe/browser/ s3://${{ steps.env.outputs.bucket }}/ \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "*.html" \
+            --exclude "*.json" \
+            --exclude "*.webmanifest"
+
+      - name: Sync HTML and manifests (no cache)
+        run: |
+          aws s3 sync dist/mayo-fe/browser/ s3://${{ steps.env.outputs.bucket }}/ \
+            --cache-control "no-cache, no-store, must-revalidate" \
+            --exclude "*" \
+            --include "*.html" \
+            --include "*.json" \
+            --include "*.webmanifest"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ steps.env.outputs.distribution }} \
+            --paths "/*"
